@@ -198,6 +198,14 @@ a:hover {
 
 @media (max-width: 480px) {
     .responsive-grid {
-        column-count: 1; /* 1 column on phones */
+        column-count: 2; /* Changed from 1 to 2 columns for mobile */
+        column-gap: 10px; /* Reduced the gap so the images have more room */
+    }
+    
+    .grid-item {
+        margin-bottom: 10px; /* Reduced bottom spacing to match the gap */
     }
 }
+
+
+
