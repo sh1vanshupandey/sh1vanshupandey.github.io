@@ -1,0 +1,203 @@
+/* Base Reset and Typography */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Canvas Background */
+#galaxyCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Keeps the animation behind the content */
+}
+
+/* Navigation Menu */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 1.2rem;
+    text-align: center;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+nav a:hover {
+    color: #ccc;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Main Content and Sections */
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 0 40px;
+}
+
+h1 {
+    font-size: 4rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(255,255,255,0.5);
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #eaeaea;
+}
+
+.hero {
+    text-align: center;
+    align-items: center;
+}
+
+.tagline {
+    font-size: 1.5rem;
+    color: #aaa;
+    font-style: italic;
+}
+
+/* Content Cards (Glassmorphism) */
+.card {
+    background: rgba(20, 20, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.card:hover {
+    background: rgba(40, 40, 40, 0.7);
+    transform: translateY(-5px);
+}
+
+.card ul {
+    list-style-position: inside;
+}
+
+.card li {
+    margin-bottom: 10px;
+}
+
+/* Skills Grid */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/* Links */
+a {
+    color: #fff;
+    text-decoration: underline;
+    text-decoration-color: rgba(255,255,255,0.4);
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #ccc;
+    text-decoration-color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    nav a { margin: 0 8px; font-size: 0.8rem; }
+}
+
+
+.skills-grid p{
+    font-size: 0.8rem;
+}
+
+
+
+
+
+/* --- Gallery Section --- */
+/* The Grid Container */
+
+/* --- Masonry Gallery Section --- */
+.responsive-grid {
+    /* Uses CSS columns to create a masonry layout */
+    column-count: 3; 
+    column-gap: 20px;
+    padding: 20px 0;
+}
+
+.grid-item {
+    break-inside: avoid; /* Prevents images from breaking across columns */
+    margin-bottom: 20px; /* Space below each image */
+    overflow: hidden;
+}
+
+.grid-item img {
+    display: block;
+    width: 100%;
+    height: auto; /* Lets the image determine its own height */
+    /* object-fit: cover is completely removed to stop cropping */
+    transition: transform 0.4s ease;
+}
+
+/* Hover Zoom Effect */
+.grid-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Make it responsive for smaller screens */
+@media (max-width: 768px) {
+    .responsive-grid {
+        column-count: 2; /* 2 columns on tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .responsive-grid {
+        column-count: 1; /* 1 column on phones */
+    }
+}
