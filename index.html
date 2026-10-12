@@ -50,50 +50,12 @@
     <div class="sun-system" id="sun-system">
       <div class="sun-glow"></div>
       <div class="sun-corona"></div>
-      <div class="sun-disc" aria-label="Animated Sun">
-        <svg class="solar-surface" viewBox="0 0 600 600" role="img" aria-hidden="true">
-          <defs>
-            <radialGradient id="solar-base" cx="34%" cy="27%" r="78%">
-              <stop offset="0%" stop-color="#fffde0"/>
-              <stop offset="14%" stop-color="#fff0a2"/>
-              <stop offset="34%" stop-color="#ffcd59"/>
-              <stop offset="56%" stop-color="#ff8a22"/>
-              <stop offset="76%" stop-color="#ed451d"/>
-              <stop offset="91%" stop-color="#a91e37"/>
-              <stop offset="100%" stop-color="#3a0b2a"/>
-            </radialGradient>
-            <radialGradient id="solar-limb" cx="50%" cy="50%" r="50%">
-              <stop offset="66%" stop-color="#fff2ae" stop-opacity="0"/>
-              <stop offset="82%" stop-color="#ffb330" stop-opacity=".06"/>
-              <stop offset="95%" stop-color="#ff6a1b" stop-opacity=".46"/>
-              <stop offset="100%" stop-color="#ff9638" stop-opacity=".92"/>
-            </radialGradient>
-            <filter id="solar-texture" x="-10%" y="-10%" width="120%" height="120%">
-              <feTurbulence type="fractalNoise" baseFrequency=".019" numOctaves="3" seed="17" result="noise"/>
-              <feColorMatrix in="noise" type="saturate" values="0" result="mono"/>
-              <feComponentTransfer in="mono" result="faint-noise">
-                <feFuncA type="table" tableValues="0 .2 .31 .4"/>
-              </feComponentTransfer>
-              <feBlend in="SourceGraphic" in2="faint-noise" mode="screen"/>
-            </filter>
-            <clipPath id="solar-clip"><circle cx="300" cy="300" r="286"/></clipPath>
-          </defs>
-          <g clip-path="url(#solar-clip)">
-            <circle cx="300" cy="300" r="286" fill="url(#solar-base)" filter="url(#solar-texture)"/>
-            <g class="solar-granules">
-              <path d="M50 176 Q112 120 170 159 T287 154 T408 112 T556 155" fill="none" stroke="#fff4a4" stroke-width="17" stroke-linecap="round" opacity=".22"/>
-              <path d="M25 352 Q98 309 162 350 T292 333 T425 365 T578 325" fill="none" stroke="#ff5a17" stroke-width="25" stroke-linecap="round" opacity=".25"/>
-              <path d="M98 475 Q162 417 233 458 T360 440 T515 462" fill="none" stroke="#ffc65c" stroke-width="15" stroke-linecap="round" opacity=".2"/>
-              <path d="M105 80 Q140 114 185 87 T278 102 T395 75" fill="none" stroke="#fff7c0" stroke-width="8" stroke-linecap="round" opacity=".27"/>
-              <path d="M15 250 Q83 229 131 260 T237 246 T353 258 T480 235 T600 253" fill="none" stroke="#f44b1d" stroke-width="10" stroke-linecap="round" opacity=".22"/>
-            </g>
-            <circle cx="300" cy="300" r="286" fill="url(#solar-limb)"/>
-          </g>
-        </svg>
+      <div class="sun-disc" aria-label="Sun observed by NASA’s Solar Dynamics Observatory">
+        <img class="solar-real-image"
+             src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia26/pia26681/PIA26681.jpg?fit=clip&amp;h=1200&amp;w=1200"
+             alt="" aria-hidden="true" fetchpriority="high" decoding="async">
       </div>
-      <span class="solar-flare solar-flare-a"></span>
-      <span class="solar-flare solar-flare-b"></span>
-      <span class="sun-label">SOL <i>·</i> G2V</span>
+      <span class="sun-label"><a href="https://science.nasa.gov/photojournal/image-of-sun-from-nasas-solar-dynamics-observatory/" target="_blank" rel="noopener noreferrer">NASA / SDO</a></span>
     </div>
     <svg class="orbital-lanes" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <path class="orbit-line orbit-a" d="M 748 -20 A 610 420 -13 1 1 -438 210 A 610 420 -13 1 1 748 -20"/>
