@@ -52,20 +52,134 @@ button:focus-visible, a:focus-visible, summary:focus-visible {
   height: 100%;
   opacity: .9;
 }
+.sun-system {
+  --solar-power: 0;
+  --solar-shift-x: 0px;
+  --solar-shift-y: 0px;
+  position: absolute;
+  z-index: 3;
+  top: clamp(-16rem, -24vh, -8rem);
+  left: clamp(-13rem, -10vw, -5rem);
+  width: clamp(29rem, 47vw, 48rem);
+  aspect-ratio: 1;
+  transform: translate3d(var(--solar-shift-x), var(--solar-shift-y), 0);
+  transform-origin: 48% 48%;
+  transition: transform .3s ease-out;
+  will-change: transform;
+}
 .sun-glow {
   position: absolute;
-  top: -18rem;
-  left: -17rem;
-  width: min(62rem, 90vw);
+  inset: -22%;
+  border-radius: 50%;
+  opacity: calc(.63 + var(--solar-power) * .35);
+  background: radial-gradient(circle,
+    rgba(255, 247, 192, .23) 0%,
+    rgba(255, 189, 80, .2) 22%,
+    rgba(244, 111, 49, .12) 43%,
+    rgba(223, 74, 61, .055) 57%,
+    transparent 73%);
+  filter: blur(9px);
+  transition: opacity .25s ease, filter .25s ease;
+}
+.sun-corona {
+  position: absolute;
+  left: 17%;
+  top: 16%;
+  width: 69%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle,
-    rgba(255, 221, 157, .22) 0%,
-    rgba(244, 174, 103, .12) 34%,
-    rgba(223, 118, 78, .04) 57%,
-    transparent 72%);
-  filter: blur(2px);
+  opacity: calc(.62 + var(--solar-power) * .38);
+  background: conic-gradient(from 0deg,
+    rgba(255, 205, 101, .02), rgba(255, 113, 47, .42) 8deg, transparent 15deg,
+    rgba(255, 230, 147, .12) 28deg, transparent 37deg, rgba(255, 120, 49, .29) 49deg,
+    transparent 66deg, rgba(255, 199, 91, .2) 81deg, transparent 96deg,
+    rgba(255, 102, 41, .36) 115deg, transparent 128deg, rgba(255, 219, 124, .12) 152deg,
+    transparent 170deg, rgba(255, 120, 43, .38) 196deg, transparent 213deg,
+    rgba(255, 214, 118, .14) 242deg, transparent 260deg, rgba(255, 118, 54, .34) 282deg,
+    transparent 305deg, rgba(255, 208, 105, .13) 329deg, transparent 350deg);
+  filter: blur(12px);
+  animation: solar-corona 68s linear infinite;
+  transition: opacity .3s ease, filter .3s ease;
 }
+.sun-disc {
+  position: absolute;
+  left: 19%;
+  top: 18%;
+  width: 67%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid rgba(255, 228, 147, .72);
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, #fff7c1, #ffc74c 30%, #ff8a22 57%, #ed451d 79%, #841532 100%);
+  box-shadow:
+    0 0 calc(20px + var(--solar-power) * 34px) rgba(255, 172, 62, .45),
+    0 0 62px rgba(255, 113, 47, .32),
+    inset -16px -22px 42px rgba(81, 12, 45, .5),
+    inset 9px 8px 23px rgba(255, 248, 196, .5);
+  transition: box-shadow .24s ease, filter .24s ease;
+  animation: solar-breathe 9s ease-in-out infinite;
+}
+.solar-surface {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  filter: saturate(calc(1 + var(--solar-power) * .34));
+  transform: rotate(0deg) scale(1.01);
+  animation: solar-surface-drift 95s linear infinite;
+}
+.solar-granules {
+  transform-origin: 300px 300px;
+  animation: solar-granule-drift 34s linear infinite;
+}
+.solar-flare {
+  position: absolute;
+  z-index: 2;
+  left: 45%;
+  top: 28%;
+  width: 33%;
+  height: 10%;
+  border: 2px solid rgba(255, 177, 67, .73);
+  border-bottom-color: transparent;
+  border-left-color: rgba(255, 218, 121, .65);
+  border-radius: 50% 50% 0 0;
+  opacity: calc(.28 + var(--solar-power) * .68);
+  filter: drop-shadow(0 0 8px rgba(255, 135, 47, .78));
+  transform: rotate(-33deg);
+  transform-origin: 12% 90%;
+  animation: flare-pulse 5s ease-in-out infinite;
+  transition: opacity .3s ease;
+  pointer-events: none;
+}
+.solar-flare-b {
+  left: 27%; top: 57%; width: 24%; height: 7%;
+  border-color: rgba(255, 196, 83, .65);
+  border-bottom-color: transparent;
+  transform: rotate(143deg);
+  animation-delay: -2.2s;
+}
+.sun-label {
+  position: absolute;
+  top: 84%;
+  left: 51%;
+  color: rgba(255, 221, 155, .6);
+  font-size: .55rem;
+  font-weight: 650;
+  letter-spacing: .28em;
+  text-shadow: 0 0 14px rgba(255, 156, 55, .45);
+  white-space: nowrap;
+  opacity: calc(.38 + var(--solar-power) * .62);
+  transition: opacity .25s ease;
+}
+.sun-label i { color: rgba(255, 155, 76, .9); font-style: normal; }
+.sun-system.is-active .sun-corona { filter: blur(7px) saturate(1.45); }
+.sun-system.is-active .sun-disc { filter: saturate(1.16) brightness(1.08); }
+.sun-system.is-active .solar-flare { filter: drop-shadow(0 0 13px rgba(255, 135, 47, .95)); }
+@keyframes solar-corona { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes solar-surface-drift { from { transform: rotate(0deg) scale(1.01); } to { transform: rotate(360deg) scale(1.01); } }
+@keyframes solar-granule-drift { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+@keyframes solar-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.008); } }
+@keyframes flare-pulse { 0%, 100% { opacity: .27; transform: rotate(-33deg) scale(.97); } 50% { opacity: .85; transform: rotate(-28deg) scale(1.035); } }
 .orbital-lanes {
   position: absolute;
   inset: 0;
@@ -680,4 +794,18 @@ a.print-action { text-decoration: none; }
 }
 @media print {
   body.print-cv #cv-panel .cv-actions { display: none !important; }
+}
+
+/* Solar system responsive scale */
+@media (max-width: 760px) {
+  .sun-system { top: -9.5rem; left: -12rem; width: 30rem; opacity: .88; }
+  .sun-label { display: none; }
+}
+@media (max-width: 430px) {
+  .sun-system { top: -8rem; left: -13rem; width: 26rem; opacity: .72; }
+  .sun-corona { filter: blur(8px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sun-corona, .solar-surface, .solar-granules, .sun-disc, .solar-flare { animation: none !important; }
+  .sun-system { transition: none !important; }
 }
