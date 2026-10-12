@@ -3,6 +3,7 @@
   "use strict";
 
   const canvas = document.getElementById("sky-map");
+  const sunSystem = document.getElementById("sun-system");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* Deterministic geometry gives each constellation a stable star pattern on resize. */
@@ -183,12 +184,31 @@
       if (!reducedMotion) animationFrame = window.requestAnimationFrame(drawSky);
     }
 
+    function updateSunInteraction() {
+      if (!sunSystem) return;
+      const disc = sunSystem.querySelector(".sun-disc");
+      if (!disc) return;
+      const rect = disc.getBoundingClientRect();
+      const cx = rect.left + rect.width * 0.5;
+      const cy = rect.top + rect.height * 0.5;
+      const distance = Math.hypot(pointer.x - cx, pointer.y - cy);
+      const reach = Math.max(rect.width * 1.15, 1);
+      const power = pointer.active ? Math.max(0, 1 - distance / reach) : 0;
+      const shiftX = pointer.active ? ((pointer.x / Math.max(width, 1)) - 0.5) * -12 : 0;
+      const shiftY = pointer.active ? ((pointer.y / Math.max(height, 1)) - 0.5) * -9 : 0;
+      sunSystem.style.setProperty("--solar-power", power.toFixed(3));
+      sunSystem.style.setProperty("--solar-shift-x", shiftX.toFixed(2) + "px");
+      sunSystem.style.setProperty("--solar-shift-y", shiftY.toFixed(2) + "px");
+      sunSystem.classList.toggle("is-active", power > 0.08);
+    }
+
     function activatePointer(event) {
       if (event.pointerType === "touch" && event.type === "pointermove") return;
       pointer.x = event.clientX;
       pointer.y = event.clientY;
       pointer.active = true;
       pointer.lastMove = performance.now();
+      updateSunInteraction();
       if (reducedMotion) drawSky(pointer.lastMove);
     }
 
@@ -196,9 +216,13 @@
     window.addEventListener("pointerdown", activatePointer, { passive: true });
     window.addEventListener("pointerleave", () => {
       pointer.active = false;
+      updateSunInteraction();
       if (reducedMotion) drawSky(performance.now());
     });
-    window.addEventListener("resize", resizeCanvas, { passive: true });
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      updateSunInteraction();
+    }, { passive: true });
     resizeCanvas();
     if (!reducedMotion) animationFrame = window.requestAnimationFrame(drawSky);
   }
