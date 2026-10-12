@@ -119,19 +119,20 @@ button:focus-visible, a:focus-visible, summary:focus-visible {
   transform: scale(1.015);
   transition: filter .25s ease;
 }
-.sun-label {
+.sun-label { display: none; }
+.solar-credit {
   position: absolute;
-  top: 84%;
-  left: 51%;
-  color: rgba(255, 221, 185, .55);
-  font-size: .50rem;
-  font-weight: 650;
-  letter-spacing: .19em;
-  white-space: nowrap;
-  opacity: .68;
+  z-index: 4;
+  left: 1.2rem;
+  bottom: 1.1rem;
+  color: rgba(225, 229, 244, .38);
+  font-size: .52rem;
+  font-weight: 500;
+  letter-spacing: .13em;
+  text-transform: uppercase;
 }
-.sun-label a { color: inherit; text-decoration: none; }
-.sun-label a:hover { color: rgba(255, 240, 220, .9); }
+.solar-credit a { color: inherit; text-decoration: none; }
+.solar-credit a:hover { color: rgba(225, 229, 244, .85); }
 .sun-system.is-active .sun-glow { opacity: .9; filter: blur(15px); }
 .sun-system.is-active .sun-corona { opacity: .82; filter: blur(3px); }
 .sun-system.is-active .sun-disc { box-shadow: 0 0 42px rgba(255, 178, 81, .34), 0 0 68px rgba(255, 113, 47, .22); }
@@ -756,6 +757,7 @@ a.print-action { text-decoration: none; }
 @media (max-width: 760px) {
   .sun-system { top: -9rem; left: -11rem; width: 29rem; opacity: .88; }
   .sun-label { display: none; }
+  .solar-credit { left: .7rem; bottom: .65rem; font-size: .46rem; }
 }
 @media (max-width: 430px) {
   .sun-system { top: -8rem; left: -12rem; width: 25rem; opacity: .72; }
