@@ -9,6 +9,9 @@
   <meta property="og:type" content="profile">
   <meta property="og:title" content="Shivanshu Pandey | Physics & Astrophysics">
   <meta property="og:description" content="Physics, computation, and the universe — projects in cosmic-ray transport, spectroscopy, and scientific computing.">
+  <meta property="og:image" content="https://sh1vanshupandey.github.io/images/shivanshu-profile.webp">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="https://sh1vanshupandey.github.io/images/shivanshu-profile.webp">
   <meta property="og:url" content="https://sh1vanshupandey.github.io/">
   <title>Shivanshu Pandey | Physics & Astrophysics</title>
   <link rel="stylesheet" href="aerial.css?v=1">
@@ -66,8 +69,8 @@
     <header id="header">
       <p class="eyebrow">Physics &nbsp;·&nbsp; Astrophysics &nbsp;·&nbsp; Scientific Computing</p>
 
-      <div class="profile-placeholder" role="img" aria-label="Stylised orbital monogram for Shivanshu Pandey">
-        <span>SP</span>
+      <div class="profile-placeholder has-photo">
+        <img src="images/shivanshu-profile.webp" alt="Portrait of Shivanshu Pandey" fetchpriority="high" decoding="async">
       </div>
 
       <h1>Shivanshu Pandey</h1>
@@ -305,53 +308,90 @@
         <div>
           <p class="panel-kicker">Curriculum vitae</p>
           <h2 id="cv-title">Shivanshu Pandey</h2>
-          <p>M.Sc. Physics Student · Indian Institute of Technology Hyderabad</p>
+          <p>M.Sc. Physics · Indian Institute of Technology Hyderabad</p>
         </div>
-        <button id="print-cv" class="print-action" type="button">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><path d="M7 14h10v7H7z"/></svg>
-          Print / Save as PDF
-        </button>
+        <div class="cv-actions">
+          <a class="print-action" href="Shivanshu_CV.pdf" download>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12V4h10l4 4v12H5z"/><path d="M15 4v5h4M8 14h8M8 17h6"/></svg>
+            Download CV (PDF)
+          </a>
+          <button id="print-cv" class="print-action" type="button">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><path d="M7 14h10v7H7z"/></svg>
+            Print / Save as PDF
+          </button>
+        </div>
       </div>
 
       <section class="cv-section">
-        <h3>Profile</h3>
-        <p>Physics postgraduate student interested in astrophysics, cosmology, computational physics, scientific computing, and experimental instrumentation. Enjoys translating physical models into reproducible numerical experiments and analysing scientific data.</p>
-      </section>
-
-      <section class="cv-section">
         <h3>Education</h3>
-        <p><strong>M.Sc. Physics</strong> — Indian Institute of Technology Hyderabad</p>
+        <p><strong>Indian Institute of Technology Hyderabad</strong> <span class="cv-date">2025–2027</span><br>
+          Master of Science, Physics · Currently in 3rd semester</p>
+        <p class="cv-detail"><strong>Core courses:</strong> High Energy Particle Astrophysics, Plasma Physics, Particle Physics, Classical Mechanics, Quantum Mechanics I &amp; II, Electrodynamics, Mathematical Physics I &amp; II, Statistical Mechanics, Computational Physics, Optics &amp; Photonics, Atomic &amp; Molecular Physics.</p>
+        <p><strong>VBS Purvanchal University</strong> <span class="cv-date">2020–2023</span><br>
+          Bachelor of Science · Physics, Chemistry, Mathematics</p>
+        <p class="cv-detail"><strong>Core courses:</strong> Calculus, Linear Algebra, Differential Equations, Real &amp; Complex Analysis, Numerical Analysis &amp; C Programming, Optics &amp; Lasers, Electronics, Solid State &amp; Nuclear Physics.</p>
       </section>
 
       <section class="cv-section">
         <h3>Selected projects</h3>
-        <p><strong>Cosmic-ray propagation in the Galaxy:</strong> Particle-level Monte Carlo scattering and macroscopic transport modelling using numerical PDE methods.</p>
-        <p><strong>Low-cost optical spectrometer:</strong> Built and calibrated a diffraction-grating spectrometer using a webcam detector and analysed spectral features.</p>
-        <p><strong>Primordial helium abundance:</strong> Data cleaning, robust central estimates, residual analysis, and goodness-of-fit tests for published determinations.</p>
-        <p><strong>8-bit breadboard computer:</strong> Built a programmable computer using digital logic and memory components.</p>
-        <p><strong>Sunspot quantification:</strong> Analysed solar FITS images using astronomical image-analysis software.</p>
+        <p><strong>Cosmic Ray Propagation in the Galaxy</strong></p>
+        <ul class="bullet-list">
+          <li>Developed 1D, 2D, and 3D simulations of cosmic-ray transport from supernova sources through the interstellar medium.</li>
+          <li>Used Monte Carlo methods to model pitch-angle scattering and random walks of 1500+ particles.</li>
+          <li>Solved the diffusion PDE using Crank–Nicolson and the Thomas algorithm; validated results statistically against analytical solutions.</li>
+          <li>Applied Dirichlet boundary conditions to study galactic escape and particle residence times.</li>
+        </ul>
+        <p><strong>Quantifying Sunspots using SAOImage DS9</strong></p>
+        <ul class="bullet-list">
+          <li>Analysed solar FITS images to identify sunspots, measure their sizes, and estimate physical areas using image-analysis techniques.</li>
+          <li>Gained experience in astronomical data analysis and handling observational data.</li>
+        </ul>
+        <p><strong>Optical Spectrometer</strong></p>
+        <ul class="bullet-list">
+          <li>Designed and constructed a low-cost diffraction-grating spectrometer with webcam-based detection, a slit mechanism, a light-isolation enclosure, and an alignment setup.</li>
+          <li>Captured and analysed spectral data, demonstrated wavelength separation and intensity measurement, and estimated the Sun’s temperature using Wien’s displacement law.</li>
+        </ul>
+        <p><strong>8-bit Breadboard Computer</strong></p>
+        <ul class="bullet-list">
+          <li>Built and tested digital-logic modules including gates, registers, counters, and memory circuits to explore computer architecture and instruction execution.</li>
+        </ul>
+      </section>
+
+      <section class="cv-section">
+        <h3>Positions of responsibility</h3>
+        <p><strong>Class Representative, M.Sc. Physics, IIT Hyderabad</strong> <span class="cv-date">July 2025–Present</span></p>
+        <p><strong>Core Member, Cepheid — Astronomy Club</strong> <span class="cv-date">June 2026–Present</span></p>
+        <p><strong>Core Member, Nakshatra Astronomy Club</strong> <span class="cv-date">August 2026–Present</span></p>
+        <p>Volunteer, National Science Week, IIT Hyderabad<br>Volunteer, National Space Week, IIT Hyderabad</p>
+      </section>
+
+      <section class="cv-section">
+        <h3>Achievements</h3>
+        <ul class="bullet-list">
+          <li><strong>IIT JAM Physics 2025:</strong> Qualified, All India Rank 514.</li>
+          <li>Shortlisted for interview for iPhD programmes at IISER Pune, IISER Bhopal, and NISER Bhubaneswar.</li>
+        </ul>
+      </section>
+
+      <section class="cv-section">
+        <h3>Experience &amp; training</h3>
+        <p><strong>Geo-processing Using Python — IIRS (ISRO)</strong> <span class="cv-date">July 2023 · 12 hours</span></p>
+        <p>Completed training in Python-based geospatial data processing and remote sensing, including Earth-observation data analysis and geoprocessing techniques.</p>
       </section>
 
       <section class="cv-section">
         <h3>Technical skills</h3>
         <ul class="skill-list">
-          <li>Python</li><li>NumPy</li><li>SciPy</li><li>Pandas</li><li>Matplotlib</li>
-          <li>Monte Carlo methods</li><li>Numerical PDEs</li><li>Git & GitHub</li><li>LaTeX</li>
-          <li>SAOImage DS9</li><li>TOPCAT</li><li>Scientific data analysis</li>
+          <li>Python</li><li>NumPy</li><li>Matplotlib</li><li>SciPy</li><li>Pandas</li>
+          <li>SAOImage DS9</li><li>TOPCAT</li><li>GitHub</li><li>VS Code</li><li>LaTeX</li>
         </ul>
       </section>
-
       <section class="cv-section">
-        <h3>Workshops & engagement</h3>
-        <p>REYES STEM Outreach Program (including Python4Physics sessions); GCI World Program; science-day event support and astronomy-club activities.</p>
+        <h3>Contact</h3>
+        <p>Email: <a href="mailto:shivanshu.sp125@gmail.com">shivanshu.sp125@gmail.com</a><br>
+          Phone: <a href="tel:+919918295630">+91 9918295630</a><br>
+          GitHub: <a href="https://github.com/sh1vanshupandey" target="_blank" rel="noopener noreferrer">github.com/sh1vanshupandey</a></p>
       </section>
-
-      <section class="cv-section">
-        <h3>Links</h3>
-        <p>Email: <a href="mailto:shivanshu.sp125@gmail.com">shivanshu.sp125@gmail.com</a></p>
-        <p>GitHub: <a href="https://github.com/sh1vanshupandey" target="_blank" rel="noopener noreferrer">github.com/sh1vanshupandey</a></p>
-      </section>
-      <p><small>Note: This is a concise, editable web CV based on information currently listed on this site. Add exact dates, grades, and any additional experience before using it for a formal application.</small></p>
     </article>
   </section>
 
