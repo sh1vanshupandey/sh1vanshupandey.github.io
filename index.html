@@ -1,154 +1,387 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shivanshu Pandey | Physics Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b18">
+  <meta name="description" content="Shivanshu Pandey — M.Sc. Physics student at IIT Hyderabad exploring computational astrophysics, cosmology, numerical physics, and scientific computing.">
+  <meta name="author" content="Shivanshu Pandey">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Shivanshu Pandey | Physics & Astrophysics">
+  <meta property="og:description" content="Physics, computation, and the universe — projects in cosmic-ray transport, spectroscopy, and scientific computing.">
+  <meta property="og:url" content="https://sh1vanshupandey.github.io/">
+  <title>Shivanshu Pandey | Physics & Astrophysics</title>
+  <link rel="stylesheet" href="aerial.css?v=1">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "url": "https://sh1vanshupandey.github.io/",
+    "name": "Shivanshu Pandey | Physics & Astrophysics",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Shivanshu Pandey",
+      "url": "https://sh1vanshupandey.github.io/",
+      "jobTitle": "M.Sc. Physics Student",
+      "affiliation": {
+        "@type": "CollegeOrUniversity",
+        "name": "Indian Institute of Technology Hyderabad",
+        "url": "https://www.iith.ac.in/"
+      },
+      "knowsAbout": [
+        "Computational Astrophysics",
+        "Cosmology",
+        "Cosmic Ray Transport",
+        "Scientific Computing",
+        "Optical Spectroscopy",
+        "Numerical Methods"
+      ],
+      "sameAs": ["https://github.com/sh1vanshupandey"]
+    }
+  }
+  </script>
 </head>
-
 <body>
-    <!-- Background Animation Canvas -->
-    <canvas id="galaxyCanvas"></canvas>
+  <div id="cosmos" aria-hidden="true">
+    <canvas id="sky-map"></canvas>
+    <div class="sun-glow"></div>
+    <svg class="orbital-lanes" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path class="orbit-line orbit-a" d="M 748 -20 A 610 420 -13 1 1 -438 210 A 610 420 -13 1 1 748 -20"/>
+      <path class="orbit-line orbit-b" d="M 980 -48 A 830 570 -13 1 1 -650 260 A 830 570 -13 1 1 980 -48"/>
+      <path class="orbit-line orbit-c" d="M 1220 -110 A 1070 730 -13 1 1 -850 320 A 1070 730 -13 1 1 1220 -110"/>
+      <circle class="orbit-dot orbit-dot-a" r="3.5">
+        <animateMotion dur="36s" repeatCount="indefinite" path="M 748 -20 A 610 420 -13 1 1 -438 210 A 610 420 -13 1 1 748 -20"/>
+      </circle>
+      <circle class="orbit-dot orbit-dot-b" r="3">
+        <animateMotion dur="53s" repeatCount="indefinite" path="M 980 -48 A 830 570 -13 1 1 -650 260 A 830 570 -13 1 1 980 -48"/>
+      </circle>
+      <circle class="orbit-dot orbit-dot-c" r="2.5">
+        <animateMotion dur="68s" repeatCount="indefinite" path="M 1220 -110 A 1070 730 -13 1 1 -850 320 A 1070 730 -13 1 1 1220 -110"/>
+      </circle>
+    </svg>
+    <div id="shade"></div>
+  </div>
 
-    <!-- Navigation -->
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#courses">Courses</a>
-        <a href="#projects">Projects</a>
-        <a href="#gallery">Gallery</a> <!-- ADD THIS LINE -->
-        <a href="#workshops">Workshops</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-    </nav>
+  <main id="main">
+    <header id="header">
+      <p class="eyebrow">Physics &nbsp;·&nbsp; Astrophysics &nbsp;·&nbsp; Scientific Computing</p>
 
-    <!-- Main Content -->
-    <main>
-        <section id="home" class="hero">
-            <h1>Shivanshu Pandey</h1>
-            <p class="tagline">Exploring the universe through computation.</p>
-        </section>
+      <div class="profile-placeholder" role="img" aria-label="Stylised orbital monogram for Shivanshu Pandey">
+        <span>SP</span>
+      </div>
 
-        <section id="about">
-            <h2>About Me</h2>
-            <div class="card">
-                <p>I am a Master's student in Physics at the Indian Institute of Technology (IIT) Hyderabad. My work
-                    bridges the gap between theoretical physics, computational simulations, and hands-on hardware
-                    engineering.</p>
-            </div>
-        </section>
+      <h1>Shivanshu Pandey</h1>
+      <p class="identity">M.Sc. Physics Student · Exploring the universe through computation</p>
+      <p class="institution">Indian Institute of Technology Hyderabad</p>
+      <p class="research-line">Interested in connecting physical intuition, mathematical modelling, and computational experiments to understand the cosmos.</p>
 
-        <section id="courses">
-            <h2>Courses & Academics</h2>
-            <div class="card">
-                <ul>
-                    <li><strong>Mathematical Physics:</strong> Advanced study of complex variables, Green's functions,
-                        and Sturm-Liouville problems.</li>
-                    <li><strong>Quantum Mechanics:</strong> In-depth focus on commutation relations, perturbation
-                        theory, and the Stark effect.</li>
-                    <li><strong>Computational Methods:</strong> Application of numerical schemes to solve partial
-                        differential equations in physics.</li>
-                </ul>
-            </div>
-        </section>
+      <nav aria-label="Primary navigation">
+        <ul>
+          <li>
+            <a class="nav-icon" href="#about" data-panel-open="about-panel" aria-controls="about-panel" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.3"/><path d="M5.2 20c.5-3.6 2.8-5.5 6.8-5.5s6.3 1.9 6.8 5.5"/></svg>
+              <span>About</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-icon" href="#research" data-panel-open="research-panel" aria-controls="research-panel" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6l-5.5 9.2A1.8 1.8 0 0 0 6.1 21h11.8a1.8 1.8 0 0 0 1.6-2.8L14 9V3"/><path d="M7.4 15h9.2M9 12.3h6"/></svg>
+              <span>Research</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-icon" href="#projects" data-panel-open="projects-panel" aria-controls="projects-panel" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5m8-5v5M7 13h3m4 0h3M7 16.5h3"/></svg>
+              <span>Projects</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-icon" href="#outreach" data-panel-open="outreach-panel" aria-controls="outreach-panel" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.8 9h16.4M3.8 15h16.4M12 3.5c2.2 2.3 3.2 5.1 3.2 8.5s-1 6.2-3.2 8.5c-2.2-2.3-3.2-5.1-3.2-8.5S9.8 5.8 12 3.5z"/></svg>
+              <span>Outreach</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-icon" href="#cv" data-panel-open="cv-panel" aria-controls="cv-panel" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h8l4 4V21H6z"/><path d="M14 3.5v4h4M9 12h6m-6 3h6m-6 3h4"/></svg>
+              <span>CV</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-icon" href="#contact" data-panel-open="contact-panel" aria-controls="contact-panel" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+              <span>Contact</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  </main>
 
-        <section id="projects">
-            <h2>Projects</h2>
-            <div class="card project">
-                <h3>1. Cosmic Rays Propagation in Galaxy</h3>
-                <p>Developed a comprehensive simulation of galactic cosmic ray transport. This project heavily utilized
-                    computational techniques, including Monte Carlo methods and Crank-Nicolson PDE solvers, to model
-                    advection-diffusion processes in space.</p>
-            </div>
-            <div class="card project">
-                <h3>2. Optical Spectrometer</h3>
-                <p>Designed and constructed a functional hardware optical spectrometer. The build utilized a web camera,
-                    diffraction grating, convex lens, and precision slit to capture and analyze light spectra
-                    computationally.</p>
-            </div>
-            <div class="card project">
-                <h3>3. 8-Bit Computer</h3>
-                <p>Built a programmable 8-bit breadboard computer entirely from scratch. Inspired by Ben Eater's
-                    architecture, this project involved wiring logic gates, memory modules, and clock circuits to
-                    understand low-level computing and machine architecture.</p>
-            </div>
-        </section>
-        <section id="gallery">
-            <h2>Gallery</h2>
-            <div class="gallery-grid">
-                <div class="responsive-grid">
-                    <div class="grid-item"><img src="images\image1.jpg" alt="Image 1"></div>
-                    <div class="grid-item"><img src="images\image2.jpg" alt="Image 2"></div>
-                    <div class="grid-item"><img src="images\image3.jpg" alt="Image 3"></div>
-                    <div class="grid-item"><img src="images\image4.jpg" alt="Image 4"></div>
-                    <div class="grid-item"><img src="images\image5.jpg" alt="Image 5"></div>
-                    <div class="grid-item"><img src="images\image6.jpg" alt="Image 6"></div>
-                    <div class="grid-item"><img src="images\image7.jpg" alt="Image 7"></div>
-                    <div class="grid-item"><img src="images\image8.jpg" alt="Image 8"></div>
-                    <div class="grid-item"><img src="images\image9.jpg" alt="Image 9"></div>
-                    <div class="grid-item"><img src="images\image10.jpg" alt="Image 10"></div>
-                    <div class="grid-item"><img src="images\image11.jpg" alt="Image 11"></div>
-                    <div class="grid-item"><img src="images\image12.jpg" alt="Image 12"></div>
-                    <div class="grid-item"><img src="images\image13.jpg" alt="Image 13"></div>
-                    <div class="grid-item"><img src="images\image14.jpg" alt="Image 14"></div>
-                    <div class="grid-item"><img src="images\image15.jpg" alt="Image 15"></div>
-                    <div class="grid-item"><img src="images\image16.jpg" alt="Image 16"></div>
-                    <div class="grid-item"><img src="images\image17.jpg" alt="Image 17"></div>
-                    <div class="grid-item"><img src="images\image18.jpg" alt="Image 18"></div>
-                </div>
+  <footer id="footer">
+    <span>© <span id="year">2026</span> Shivanshu Pandey &nbsp;·&nbsp; <a href="https://github.com/sh1vanshupandey" target="_blank" rel="noopener noreferrer">GitHub</a></span>
+  </footer>
 
-            </div>
-        </section>
-        <section id="workshops">
-            <h2>Workshops and Seminars</h2>
-            <div class="card">
-                <ul>
-                    <li><strong>REYES STEM Outreach Program (UC Berkeley):</strong> Participated in extensive virtual
-                        sessions, including the Python4Physics workshops, focusing on coding applications in modern
-                        physics.</li>
-                    <li><strong>GCI World Program (University of Tokyo):</strong> Enrolled in the Matsuo & Iwasawa
-                        Laboratory's global educational initiative to further expand computational and data science
-                        capabilities.</li>
-                </ul>
-            </div>
-        </section>
+  <!-- ABOUT -->
+  <section id="about-panel" class="panel-layer" role="dialog" aria-modal="true" aria-labelledby="about-title" aria-hidden="true" inert>
+    <article class="panel-card">
+      <button class="panel-close" type="button" aria-label="Close About panel">&times;</button>
+      <p class="panel-kicker">A little about me</p>
+      <h2 id="about-title">Curiosity, from the lab to the cosmos.</h2>
+      <div class="panel-intro">
+        <p>I am an M.Sc. Physics student at the <strong>Indian Institute of Technology Hyderabad</strong>. I enjoy exploring how mathematical ideas and computational tools help us understand physical systems, from laboratory experiments to large-scale astrophysical processes.</p>
+        <p>My interests span astrophysics and cosmology, numerical modelling, observational astronomy, and hands-on instrumentation. I like projects where theory, code, data, and experiment inform one another.</p>
+      </div>
+      <p class="section-label">Areas I enjoy exploring</p>
+      <ul class="interest-list">
+        <li>Astrophysics & Cosmology</li>
+        <li>Computational Physics</li>
+        <li>Cosmic-Ray Transport</li>
+        <li>Primordial Nucleosynthesis</li>
+        <li>Scientific Python</li>
+        <li>Observational Astronomy</li>
+        <li>Optical Instrumentation</li>
+        <li>Numerical Methods</li>
+      </ul>
+      <div class="panel-grid">
+        <div class="info-card">
+          <p class="card-meta">Approach</p>
+          <h3>Understand the physics first</h3>
+          <p>I value first-principles reasoning, clearly stated assumptions, reproducible analysis, and numerical methods that can be checked against physical expectations.</p>
+        </div>
+        <div class="info-card">
+          <p class="card-meta">Beyond coursework</p>
+          <h3>Build, observe, communicate</h3>
+          <p>From a low-cost spectrometer to astronomy image analysis, I enjoy making scientific ideas tangible and helping share science with a wider audience.</p>
+        </div>
+      </div>
+    </article>
+  </section>
 
-        <section id="skills">
-            <h2>Skills</h2>
-            <div class="skills-grid">
-                <div class="card skill-category">
-                    <h3>Programming & Scripting</h3>
-                    <p>Python</p>
-                </div>
-                <div class="card skill-category">
-                    <h3>Libraries</h3>
-                    <p>NumPy, Matplotlib, SciPy, Pandas</p>
-                </div>
-                <div class="card skill-category">
-                    <h3>Tools & Workflows</h3>
-                    <p>GitHub, VS Code</p>
-                </div>
-                <div class="card skill-category">
-                    <h3>Documentation</h3>
-                    <p>LaTeX</p>
-                </div>
-            </div>
-        </section>
+  <!-- RESEARCH -->
+  <section id="research-panel" class="panel-layer" role="dialog" aria-modal="true" aria-labelledby="research-title" aria-hidden="true" inert>
+    <article class="panel-card">
+      <button class="panel-close" type="button" aria-label="Close Research panel">&times;</button>
+      <p class="panel-kicker">Research interests & investigations</p>
+      <h2 id="research-title">Questions about matter, motion, and the universe.</h2>
+      <p class="panel-intro">I am interested in using computational modelling and data analysis to study astrophysical systems. These projects reflect the directions I have been exploring; they are presented as student projects and ongoing investigations, not as published research claims.</p>
 
-        <section id="contact">
-            <h2>Contact</h2>
-            <div class="card">
-                <p><strong>Phone:</strong> +91 9918295630</p>
-                <p><strong>Email:</strong> <a href="mailto:shivanshu.sp125@gmail.com">shivanshu.sp125@gmail.com</a></p>
-                <p><strong>GitHub:</strong> <a href="https://github.com/sh1vanshupandey"
-                        target="_blank">github.com/sh1vanshupandey</a></p>
-            </div>
-        </section>
-    </main>
+      <div class="panel-grid">
+        <article class="project-card">
+          <p class="card-meta">Computational astrophysics</p>
+          <h3>Cosmic-ray propagation in the Galaxy</h3>
+          <p>A numerical study of particle transport using Monte Carlo pitch-angle scattering and macroscopic advection–diffusion models. The workflow explores transport behaviour and compares particle-level intuition with PDE-based solutions.</p>
+          <ul class="skill-list"><li>Python</li><li>Monte Carlo</li><li>Crank–Nicolson</li><li>Numerical PDEs</li></ul>
+        </article>
+        <article class="project-card">
+          <p class="card-meta">Cosmology · Data analysis</p>
+          <h3>Primordial helium abundance</h3>
+          <p>A statistical analysis of published primordial helium abundance determinations, including robust central estimators, normalized residuals, and goodness-of-fit comparisons with candidate probability distributions.</p>
+          <ul class="skill-list"><li>Astrostatistics</li><li>Python</li><li>KS tests</li><li>Uncertainty analysis</li></ul>
+        </article>
+        <article class="project-card">
+          <p class="card-meta">Observational astronomy</p>
+          <h3>Quantifying sunspots</h3>
+          <p>Working with solar FITS images and astronomical image-analysis tools to identify and quantify sunspots using region selection and ellipse fitting.</p>
+          <ul class="skill-list"><li>FITS</li><li>SAOImage DS9</li><li>Image analysis</li></ul>
+        </article>
+        <article class="project-card">
+          <p class="card-meta">Experimental physics</p>
+          <h3>Optical spectroscopy</h3>
+          <p>Building and calibrating a low-cost diffraction-grating spectrometer, extracting spectral features from camera measurements, and examining wavelength calibration and resolution limits.</p>
+          <ul class="skill-list"><li>Optics</li><li>Calibration</li><li>Data analysis</li></ul>
+        </article>
+      </div>
+    </article>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- PROJECTS -->
+  <section id="projects-panel" class="panel-layer" role="dialog" aria-modal="true" aria-labelledby="projects-title" aria-hidden="true" inert>
+    <article class="panel-card">
+      <button class="panel-close" type="button" aria-label="Close Projects panel">&times;</button>
+      <p class="panel-kicker">Selected work</p>
+      <h2 id="projects-title">Projects that turn ideas into something testable.</h2>
+      <p class="panel-intro">A selection of computational, experimental, and observational work. The code, measurements, and interpretation are as important as the final result.</p>
+
+      <div class="panel-grid">
+        <article class="project-card">
+          <p class="card-meta">01 / Computational physics</p>
+          <h3>Cosmic-ray propagation in the Galaxy</h3>
+          <p>Explores cosmic-ray transport through Monte Carlo particle scattering and a Crank–Nicolson solver for transport equations, with attention to numerical stability and comparison between microscopic and macroscopic descriptions.</p>
+          <a class="text-link" href="#research" data-panel-open="research-panel">Research details <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="project-card">
+          <p class="card-meta">02 / Experimental optics</p>
+          <h3>Low-cost optical spectrometer</h3>
+          <p>Designed a spectrometer using a narrow slit, convex lenses, a diffraction grating, and a webcam detector. Work included wavelength calibration with known spectral lines and analysis of LED and other light sources.</p>
+        </article>
+        <article class="project-card">
+          <p class="card-meta">03 / Digital electronics</p>
+          <h3>8-bit breadboard computer</h3>
+          <p>Built a programmable 8-bit computer from basic logic and memory components to explore registers, clocking, control signals, and how low-level computer architecture executes instructions.</p>
+        </article>
+        <article class="project-card">
+          <p class="card-meta">04 / Astrostatistics</p>
+          <h3>Primordial helium meta-analysis</h3>
+          <p>Cleaned a compilation of published helium-abundance determinations and investigated central estimates, normalized residuals, and candidate distributions using statistical goodness-of-fit tests.</p>
+          <a class="text-link" href="#research" data-panel-open="research-panel">Research details <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="project-card">
+          <p class="card-meta">05 / Observational astronomy</p>
+          <h3>Sunspot image analysis</h3>
+          <p>Explored solar observations in FITS format and used astronomical image tools and elliptical regions to quantify sunspot features as part of an astronomy-club project.</p>
+        </article>
+        <article class="project-card">
+          <p class="card-meta">Tools / Workflow</p>
+          <h3>Scientific computing</h3>
+          <p>Python workflows built with NumPy, SciPy, Pandas, and Matplotlib, supported by Git/GitHub, LaTeX, and tools for examining astronomical data.</p>
+        </article>
+      </div>
+
+      <details class="gallery-disclosure" id="gallery-disclosure">
+        <summary>Open project & astronomy gallery</summary>
+        <p>Selected photographs from my existing portfolio gallery.</p>
+        <div class="gallery-grid">
+          <figure><img data-src="images/image1.jpg" data-alt="Portfolio gallery photograph 1" alt="" loading="lazy"><figcaption>Gallery 01</figcaption></figure>
+          <figure><img data-src="images/image2.jpg" data-alt="Portfolio gallery photograph 2" alt="" loading="lazy"><figcaption>Gallery 02</figcaption></figure>
+          <figure><img data-src="images/image3.jpg" data-alt="Portfolio gallery photograph 3" alt="" loading="lazy"><figcaption>Gallery 03</figcaption></figure>
+          <figure><img data-src="images/image4.jpg" data-alt="Portfolio gallery photograph 4" alt="" loading="lazy"><figcaption>Gallery 04</figcaption></figure>
+          <figure><img data-src="images/image5.jpg" data-alt="Portfolio gallery photograph 5" alt="" loading="lazy"><figcaption>Gallery 05</figcaption></figure>
+          <figure><img data-src="images/image6.jpg" data-alt="Portfolio gallery photograph 6" alt="" loading="lazy"><figcaption>Gallery 06</figcaption></figure>
+          <figure><img data-src="images/image7.jpg" data-alt="Portfolio gallery photograph 7" alt="" loading="lazy"><figcaption>Gallery 07</figcaption></figure>
+          <figure><img data-src="images/image8.jpg" data-alt="Portfolio gallery photograph 8" alt="" loading="lazy"><figcaption>Gallery 08</figcaption></figure>
+          <figure><img data-src="images/image9.jpg" data-alt="Portfolio gallery photograph 9" alt="" loading="lazy"><figcaption>Gallery 09</figcaption></figure>
+          <figure><img data-src="images/image10.jpg" data-alt="Portfolio gallery photograph 10" alt="" loading="lazy"><figcaption>Gallery 10</figcaption></figure>
+          <figure><img data-src="images/image11.jpg" data-alt="Portfolio gallery photograph 11" alt="" loading="lazy"><figcaption>Gallery 11</figcaption></figure>
+          <figure><img data-src="images/image12.jpg" data-alt="Portfolio gallery photograph 12" alt="" loading="lazy"><figcaption>Gallery 12</figcaption></figure>
+          <figure><img data-src="images/image13.jpg" data-alt="Portfolio gallery photograph 13" alt="" loading="lazy"><figcaption>Gallery 13</figcaption></figure>
+          <figure><img data-src="images/image14.jpg" data-alt="Portfolio gallery photograph 14" alt="" loading="lazy"><figcaption>Gallery 14</figcaption></figure>
+          <figure><img data-src="images/image15.jpg" data-alt="Portfolio gallery photograph 15" alt="" loading="lazy"><figcaption>Gallery 15</figcaption></figure>
+          <figure><img data-src="images/image16.jpg" data-alt="Portfolio gallery photograph 16" alt="" loading="lazy"><figcaption>Gallery 16</figcaption></figure>
+          <figure><img data-src="images/image17.jpg" data-alt="Portfolio gallery photograph 17" alt="" loading="lazy"><figcaption>Gallery 17</figcaption></figure>
+          <figure><img data-src="images/image18.jpg" data-alt="Portfolio gallery photograph 18" alt="" loading="lazy"><figcaption>Gallery 18</figcaption></figure>
+        </div>
+      </details>
+    </article>
+  </section>
+
+  <!-- OUTREACH -->
+  <section id="outreach-panel" class="panel-layer" role="dialog" aria-modal="true" aria-labelledby="outreach-title" aria-hidden="true" inert>
+    <article class="panel-card">
+      <button class="panel-close" type="button" aria-label="Close Outreach panel">&times;</button>
+      <p class="panel-kicker">Sharing science</p>
+      <h2 id="outreach-title">Learning, participation, and science communication.</h2>
+      <p class="panel-intro">Alongside coursework and projects, I value opportunities to communicate science, support student activities, and learn from research and education communities.</p>
+      <div class="panel-grid">
+        <article class="outreach-card">
+          <p class="card-meta">Science communication</p>
+          <h3>Science-day activities</h3>
+          <p>Contributed to organising activities and creating posters for science-day events, combining visual communication with public engagement in science.</p>
+        </article>
+        <article class="outreach-card">
+          <p class="card-meta">Astronomy community</p>
+          <h3>Astronomy club activities</h3>
+          <p>Participated in astronomy-related projects and communication, including sunspot analysis using astronomical images and preparation of supporting materials.</p>
+        </article>
+        <article class="outreach-card">
+          <p class="card-meta">UC Berkeley</p>
+          <h3>REYES STEM Outreach Program</h3>
+          <p>Engaged with virtual learning sessions, including Python4Physics workshops exploring computational applications in modern physics.</p>
+        </article>
+        <article class="outreach-card">
+          <p class="card-meta">University of Tokyo</p>
+          <h3>GCI World Program</h3>
+          <p>Learning through the Matsuo–Iwasawa Laboratory's educational initiative, with an emphasis on computational and data-science skills.</p>
+        </article>
+      </div>
+    </article>
+  </section>
+
+  <!-- CV -->
+  <section id="cv-panel" class="panel-layer" role="dialog" aria-modal="true" aria-labelledby="cv-title" aria-hidden="true" inert>
+    <article class="panel-card">
+      <button class="panel-close" type="button" aria-label="Close CV panel">&times;</button>
+      <div class="cv-heading">
+        <div>
+          <p class="panel-kicker">Curriculum vitae</p>
+          <h2 id="cv-title">Shivanshu Pandey</h2>
+          <p>M.Sc. Physics Student · Indian Institute of Technology Hyderabad</p>
+        </div>
+        <button id="print-cv" class="print-action" type="button">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><path d="M7 14h10v7H7z"/></svg>
+          Print / Save as PDF
+        </button>
+      </div>
+
+      <section class="cv-section">
+        <h3>Profile</h3>
+        <p>Physics postgraduate student interested in astrophysics, cosmology, computational physics, scientific computing, and experimental instrumentation. Enjoys translating physical models into reproducible numerical experiments and analysing scientific data.</p>
+      </section>
+
+      <section class="cv-section">
+        <h3>Education</h3>
+        <p><strong>M.Sc. Physics</strong> — Indian Institute of Technology Hyderabad</p>
+      </section>
+
+      <section class="cv-section">
+        <h3>Selected projects</h3>
+        <p><strong>Cosmic-ray propagation in the Galaxy:</strong> Particle-level Monte Carlo scattering and macroscopic transport modelling using numerical PDE methods.</p>
+        <p><strong>Low-cost optical spectrometer:</strong> Built and calibrated a diffraction-grating spectrometer using a webcam detector and analysed spectral features.</p>
+        <p><strong>Primordial helium abundance:</strong> Data cleaning, robust central estimates, residual analysis, and goodness-of-fit tests for published determinations.</p>
+        <p><strong>8-bit breadboard computer:</strong> Built a programmable computer using digital logic and memory components.</p>
+        <p><strong>Sunspot quantification:</strong> Analysed solar FITS images using astronomical image-analysis software.</p>
+      </section>
+
+      <section class="cv-section">
+        <h3>Technical skills</h3>
+        <ul class="skill-list">
+          <li>Python</li><li>NumPy</li><li>SciPy</li><li>Pandas</li><li>Matplotlib</li>
+          <li>Monte Carlo methods</li><li>Numerical PDEs</li><li>Git & GitHub</li><li>LaTeX</li>
+          <li>SAOImage DS9</li><li>TOPCAT</li><li>Scientific data analysis</li>
+        </ul>
+      </section>
+
+      <section class="cv-section">
+        <h3>Workshops & engagement</h3>
+        <p>REYES STEM Outreach Program (including Python4Physics sessions); GCI World Program; science-day event support and astronomy-club activities.</p>
+      </section>
+
+      <section class="cv-section">
+        <h3>Links</h3>
+        <p>Email: <a href="mailto:shivanshu.sp125@gmail.com">shivanshu.sp125@gmail.com</a></p>
+        <p>GitHub: <a href="https://github.com/sh1vanshupandey" target="_blank" rel="noopener noreferrer">github.com/sh1vanshupandey</a></p>
+      </section>
+      <p><small>Note: This is a concise, editable web CV based on information currently listed on this site. Add exact dates, grades, and any additional experience before using it for a formal application.</small></p>
+    </article>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact-panel" class="panel-layer" role="dialog" aria-modal="true" aria-labelledby="contact-title" aria-hidden="true" inert>
+    <article class="panel-card">
+      <button class="panel-close" type="button" aria-label="Close Contact panel">&times;</button>
+      <p class="panel-kicker">Get in touch</p>
+      <h2 id="contact-title">Let's talk physics.</h2>
+      <p class="panel-intro">For conversations about physics, computational projects, astronomy, or collaboration, the best way to reach me is by email.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:shivanshu.sp125@gmail.com">
+          <span class="contact-link-icon" aria-hidden="true">@</span>
+          <span><strong>Email</strong><small>shivanshu.sp125@gmail.com</small></span>
+        </a>
+        <a class="contact-link" href="https://github.com/sh1vanshupandey" target="_blank" rel="noopener noreferrer">
+          <span class="contact-link-icon" aria-hidden="true">GH</span>
+          <span><strong>GitHub</strong><small>Code, repositories, and projects</small></span>
+        </a>
+        <a class="contact-link" href="https://www.iith.ac.in/" target="_blank" rel="noopener noreferrer">
+          <span class="contact-link-icon" aria-hidden="true">IIT</span>
+          <span><strong>Institution</strong><small>Indian Institute of Technology Hyderabad</small></span>
+        </a>
+      </div>
+    </article>
+  </section>
+
+  <script src="aerial.js?v=1"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
-
 </html>
