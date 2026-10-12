@@ -103,7 +103,8 @@
       canvas.style.height = height + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       buildSky();
-      drawSky(performance.now());
+      ctx.clearRect(0, 0, width, height);
+      if (reducedMotion) drawSky(performance.now());
     }
 
     function drawSky(now) {
