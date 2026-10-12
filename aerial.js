@@ -30,7 +30,7 @@
         speed: .25 + Math.random() * .8,
         alpha: .2 + Math.random() * .58
       }));
-      drawStars(0);
+      if (reducedMotion) drawStars(0);
     }
 
     function drawStars(time) {
@@ -57,6 +57,7 @@
 
     window.addEventListener("resize", resizeCanvas, { passive: true });
     resizeCanvas();
+    if (!reducedMotion) window.requestAnimationFrame(drawStars);
   }
 
   const openers = Array.from(document.querySelectorAll("[data-panel-open]"));
@@ -79,9 +80,13 @@
   function openPanel(panel, opener, updateAddress = true) {
     if (!panel) return;
     const currentlyOpen = panels.find((item) => item.classList.contains("is-visible"));
+    const returnTarget = currentlyOpen
+      ? openers.find((item) => item.dataset.panelOpen === currentlyOpen.id)
+      : null;
     if (currentlyOpen && currentlyOpen !== panel) closePanel(false, false);
 
-    lastFocusedElement = opener || document.activeElement;
+    /* When switching panels from an internal link, restore focus to the original nav control. */
+    lastFocusedElement = returnTarget || opener || document.activeElement;
     panels.forEach((item) => {
       const isTarget = item === panel;
       item.classList.toggle("is-visible", isTarget);
