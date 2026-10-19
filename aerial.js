@@ -2,231 +2,46 @@
 (() => {
   "use strict";
 
-  const canvas = document.getElementById("sky-map");
+  /* The astronomical canvas uses the real star catalogue in assets/sky-data.js. */
   const sunSystem = document.getElementById("sun-system");
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const planetSprites = Array.from(document.querySelectorAll(".planet-sprite"));
+  let lastPlanetFrame = 0;
 
-  /* Deterministic geometry gives each constellation a stable star pattern on resize. */
-  function seededRandom(seed) {
-    let value = seed >>> 0;
-    return () => {
-      value = (value * 1664525 + 1013904223) >>> 0;
-      return value / 4294967296;
-    };
-  }
-
-  if (canvas) {
-    const ctx = canvas.getContext("2d");
-    let width = 0;
-    let height = 0;
-    let dpr = 1;
-    let stars = [];
-    let clusters = [];
-    let pointer = { x: -1000, y: -1000, active: false, lastMove: 0 };
-    let animationFrame = 0;
-
-    const clusterNames = [
-      "CYGNUS", "LYRA", "ORION", "CASSIOPEIA", "ANDROMEDA", "PEGASUS",
-      "AQUILA", "DRACO", "PERSEUS", "TAURUS", "URSA MINOR", "VIRGO",
-      "LEO", "HERCULES", "CETUS", "AURIGA", "DELPHINUS", "BOOTES"
-    ];
-    const lineColors = [
-      [158, 217, 215], [199, 184, 229], [227, 168, 181],
-      [191, 205, 238], [210, 194, 160]
-    ];
-
-    function buildSky() {
-      const rand = seededRandom(47512026);
-      stars = Array.from({ length: Math.min(260, Math.round(width * height / 5200)) }, () => ({
-        x: rand() * width,
-        y: rand() * height,
-        radius: .25 + rand() * 1.05,
-        alpha: .12 + rand() * .46,
-        phase: rand() * Math.PI * 2,
-        speed: .5 + rand() * 1.2
-      }));
-
-      const count = Math.max(14, Math.min(22, Math.round(width / 76)));
-      clusters = Array.from({ length: count }, (_, index) => {
-        const cx = .035 + rand() * .93;
-        const cy = .055 + rand() * .89;
-        const radius = 42 + rand() * Math.min(70, width * .055);
-        const nodeCount = 6 + Math.floor(rand() * 6);
-        const nodes = Array.from({ length: nodeCount }, () => {
-          const angle = rand() * Math.PI * 2;
-          const distance = Math.sqrt(rand()) * radius;
-          return {
-            x: Math.cos(angle) * distance,
-            y: Math.sin(angle) * distance * (.55 + rand() * .5),
-            r: .7 + rand() * 1.5,
-            phase: rand() * Math.PI * 2
-          };
-        });
-        /* A connected path with a few cross-links makes each group read as a constellation. */
-        const edges = [];
-        for (let i = 0; i < nodes.length - 1; i++) edges.push([i, i + 1]);
-        for (let i = 0; i < nodes.length; i++) {
-          let nearest = -1;
-          let distance = Infinity;
-          for (let j = 0; j < nodes.length; j++) {
-            if (i === j || Math.abs(i - j) === 1) continue;
-            const dx = nodes[i].x - nodes[j].x;
-            const dy = nodes[i].y - nodes[j].y;
-            const d = dx * dx + dy * dy;
-            if (d < distance) { distance = d; nearest = j; }
-          }
-          if (nearest >= 0 && rand() > .40) {
-            const edge = i < nearest ? [i, nearest] : [nearest, i];
-            if (!edges.some((e) => e[0] === edge[0] && e[1] === edge[1])) edges.push(edge);
-          }
-        }
-        return {
-          x: cx * width,
-          y: cy * height,
-          depth: .25 + rand() * .9,
-          radius,
-          nodes,
-          edges,
-          name: clusterNames[index % clusterNames.length],
-          color: lineColors[index % lineColors.length],
-          phase: rand() * Math.PI * 2
-        };
+  function animatePlanets(now) {
+    if (!document.hidden && !document.body.classList.contains("panel-open") && now - lastPlanetFrame > 32) {
+      planetSprites.forEach((planet, index) => {
+        const path = document.getElementById(planet.dataset.motionPath);
+        if (!path || typeof path.getPointAtLength !== "function") return;
+        const length = path.getTotalLength();
+        const duration = Number(planet.dataset.travelTime || 20) * 1000;
+        const fraction = ((now % duration) / duration + index * 0.23) % 1;
+        const point = path.getPointAtLength(fraction * length);
+        planet.setAttribute("transform", "translate(" + point.x.toFixed(2) + " " + point.y.toFixed(2) + ")");
       });
+      lastPlanetFrame = now;
     }
-
-    function resizeCanvas() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = Math.round(width * dpr);
-      canvas.height = Math.round(height * dpr);
-      canvas.style.width = width + "px";
-      canvas.style.height = height + "px";
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      buildSky();
-      ctx.clearRect(0, 0, width, height);
-      if (reducedMotion) drawSky(performance.now());
-    }
-
-    function drawSky(now) {
-      ctx.clearRect(0, 0, width, height);
-      const age = now - pointer.lastMove;
-      const pointerInfluence = pointer.active ? Math.max(0, 1 - age / 2400) : 0;
-
-      /* Distant field of stars. */
-      for (const star of stars) {
-        const twinkle = reducedMotion ? 1 : .76 + .24 * Math.sin(now * .0007 * star.speed + star.phase);
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(224, 235, 255, " + (star.alpha * twinkle) + ")";
-        ctx.fill();
-      }
-
-      /* Reveal a network of clustered stars near the pointer; subtly parallax the whole sky. */
-      for (const group of clusters) {
-        const parallaxX = pointer.active ? ((pointer.x / Math.max(width, 1)) - .5) * 24 * group.depth : 0;
-        const parallaxY = pointer.active ? ((pointer.y / Math.max(height, 1)) - .5) * 18 * group.depth : 0;
-        const gx = group.x - parallaxX;
-        const gy = group.y - parallaxY;
-        const distance = Math.hypot(pointer.x - gx, pointer.y - gy);
-        const reach = Math.max(150, Math.min(270, group.radius * 2.5));
-        const localFocus = pointerInfluence * Math.max(0, 1 - distance / reach);
-        const [red, green, blue] = group.color;
-        const baseAlpha = .035 + localFocus * .56;
-
-        for (const [a, b] of group.edges) {
-          const p = group.nodes[a];
-          const q = group.nodes[b];
-          ctx.beginPath();
-          ctx.moveTo(gx + p.x, gy + p.y);
-          ctx.lineTo(gx + q.x, gy + q.y);
-          ctx.strokeStyle = "rgba(" + red + ", " + green + ", " + blue + ", " + baseAlpha + ")";
-          ctx.lineWidth = .55 + localFocus * .5;
-          ctx.stroke();
-        }
-
-        for (const node of group.nodes) {
-          const sx = gx + node.x;
-          const sy = gy + node.y;
-          const twinkle = reducedMotion ? 1 : .75 + .25 * Math.sin(now * .001 + node.phase);
-          const bright = .16 + localFocus * .78;
-          ctx.beginPath();
-          ctx.arc(sx, sy, node.r + localFocus * 1.1, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(" + Math.min(255, red + 30) + ", " + Math.min(255, green + 30) + ", " + Math.min(255, blue + 30) + ", " + (bright * twinkle) + ")";
-          ctx.fill();
-
-          if (localFocus > .34) {
-            ctx.beginPath();
-            ctx.arc(sx, sy, 4 + localFocus * 4, 0, Math.PI * 2);
-            ctx.fillStyle = "rgba(" + red + ", " + green + ", " + blue + ", " + (.06 * localFocus) + ")";
-            ctx.fill();
-          }
-        }
-
-        if (localFocus > .24) {
-          ctx.font = "600 8px system-ui, sans-serif";
-          ctx.letterSpacing = "1.3px";
-          ctx.fillStyle = "rgba(200, 202, 226, " + Math.min(.52, localFocus * .72) + ")";
-          ctx.fillText(group.name, gx + group.radius * .48, gy - group.radius * .35);
-        }
-      }
-
-      /* A soft glow follows the pointer while it is moving, like a searching telescope. */
-      if (pointerInfluence > .01) {
-        const glow = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 170);
-        glow.addColorStop(0, "rgba(158, 217, 215, " + (.075 * pointerInfluence) + ")");
-        glow.addColorStop(.45, "rgba(158, 217, 215, " + (.027 * pointerInfluence) + ")");
-        glow.addColorStop(1, "rgba(158, 217, 215, 0)");
-        ctx.fillStyle = glow;
-        ctx.fillRect(pointer.x - 170, pointer.y - 170, 340, 340);
-      }
-
-      if (!reducedMotion) animationFrame = window.requestAnimationFrame(drawSky);
-    }
-
-    function updateSunInteraction() {
-      if (!sunSystem) return;
-      const disc = sunSystem.querySelector(".sun-disc");
-      if (!disc) return;
-      const rect = disc.getBoundingClientRect();
-      const cx = rect.left + rect.width * 0.5;
-      const cy = rect.top + rect.height * 0.5;
-      const distance = Math.hypot(pointer.x - cx, pointer.y - cy);
-      const reach = Math.max(rect.width * 1.15, 1);
-      const power = pointer.active ? Math.max(0, 1 - distance / reach) : 0;
-      const shiftX = pointer.active ? ((pointer.x / Math.max(width, 1)) - 0.5) * -12 : 0;
-      const shiftY = pointer.active ? ((pointer.y / Math.max(height, 1)) - 0.5) * -9 : 0;
-      sunSystem.style.setProperty("--solar-power", power.toFixed(3));
-      sunSystem.style.setProperty("--solar-shift-x", shiftX.toFixed(2) + "px");
-      sunSystem.style.setProperty("--solar-shift-y", shiftY.toFixed(2) + "px");
-      sunSystem.classList.toggle("is-active", power > 0.08);
-    }
-
-    function activatePointer(event) {
-      if (event.pointerType === "touch" && event.type === "pointermove") return;
-      pointer.x = event.clientX;
-      pointer.y = event.clientY;
-      pointer.active = true;
-      pointer.lastMove = performance.now();
-      updateSunInteraction();
-      if (reducedMotion) drawSky(pointer.lastMove);
-    }
-
-    window.addEventListener("pointermove", activatePointer, { passive: true });
-    window.addEventListener("pointerdown", activatePointer, { passive: true });
-    window.addEventListener("pointerleave", () => {
-      pointer.active = false;
-      updateSunInteraction();
-      if (reducedMotion) drawSky(performance.now());
-    });
-    window.addEventListener("resize", () => {
-      resizeCanvas();
-      updateSunInteraction();
-    }, { passive: true });
-    resizeCanvas();
-    if (!reducedMotion) animationFrame = window.requestAnimationFrame(drawSky);
+    if (!reducedMotion.matches) window.requestAnimationFrame(animatePlanets);
   }
 
+  function updateSunInteraction(pointerX, pointerY, active) {
+    if (!sunSystem) return;
+    const disc = sunSystem.querySelector(".realistic-star");
+    if (!disc) return;
+    const rect = disc.getBoundingClientRect();
+    const cx = rect.left + rect.width * 0.5;
+    const cy = rect.top + rect.height * 0.5;
+    const distance = Math.hypot(pointerX - cx, pointerY - cy);
+    const power = active ? Math.max(0, 1 - distance / Math.max(rect.width * 1.15, 1)) : 0;
+    sunSystem.style.setProperty("--solar-power", power.toFixed(3));
+    sunSystem.style.setProperty("--solar-shift-x", (active ? ((pointerX / Math.max(window.innerWidth, 1)) - .5) * -8 : 0).toFixed(2) + "px");
+    sunSystem.style.setProperty("--solar-shift-y", (active ? ((pointerY / Math.max(window.innerHeight, 1)) - .5) * -6 : 0).toFixed(2) + "px");
+    sunSystem.classList.toggle("is-active", power > .08);
+  }
+
+  window.addEventListener("pointermove", event => updateSunInteraction(event.clientX, event.clientY, true), { passive: true });
+  document.addEventListener("mouseleave", () => updateSunInteraction(-1000, -1000, false));
+  if (!reducedMotion.matches) window.requestAnimationFrame(animatePlanets);
   const openers = Array.from(document.querySelectorAll("[data-panel-open]"));
   const panels = Array.from(document.querySelectorAll(".panel-layer"));
   let lastFocusedElement = null;
