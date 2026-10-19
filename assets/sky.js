@@ -9,9 +9,9 @@
 
 	const isSafari = document.documentElement.classList.contains('is-safari');
 	const context = canvas.getContext('2d', isSafari ? { alpha: true } : { alpha: true, desynchronized: true });
-	const latitude = 28.6139;
-	const longitude = 77.2090;
-	const startTime = Date.UTC(2000, 4, 16, 18, 30, 0); // 17 May 2000, 00:00 IST
+	const latitude = 17.59; // IIT Hyderabad, Telangana
+	const longitude = 78.12; // IIT Hyderabad, Telangana
+	const startTime = Date.UTC(2026, 9, 18, 18, 30, 0); // 19 Oct 2026, 00:00 IST
 	const simulatedDay = 24 * 60 * 60 * 1000;
 	const loopDuration = 120 * 1000;
 	const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -236,7 +236,7 @@
 	}
 
 	function animate(now) {
-		const paused = document.hidden || document.body.classList.contains('modal-open');
+		const paused = document.hidden || (document.body.classList.contains('modal-open') || document.body.classList.contains('panel-open'));
 		if (!paused && now - lastRenderTime >= frameInterval) {
 			const elapsed = now % loopDuration;
 			render(startTime + elapsed / loopDuration * simulatedDay);
